@@ -1,0 +1,47 @@
+#############################
+#Atoms types - mass - charge#
+#############################
+#@ 12 atom types #!THIS LINE IS NECESSARY DON'T SPEND HOURS FINDING THAT OUT!#
+
+variable Al  equal 1
+variable C0  equal 2
+variable C1  equal 3
+variable C2  equal 4
+variable Mo  equal 5
+variable S   equal 6
+
+#############
+#Atom Masses#
+#############
+
+mass ${Al}      26.981539
+mass ${C0}      12.01
+mass ${C1}      12.01
+mass ${C2}      12.01
+mass ${Mo}      95.96
+mass ${S}       32.06
+
+###########################
+#Pair Potentials - Tersoff#
+###########################
+
+pair_style hybrid/overlay morse/smooth/linear 12 eam/alloy lj/smooth/linear 11 tersoff tersoff tersoff rebomos kolmogorov/crespi/z 12.0
+pair_coeff      * *  tersoff 1  ../../forcefields/C.opt.tersoff    NULL C(O) NULL NULL NULL NULL
+pair_coeff      * *  tersoff 2  ../../forcefields/C.opt.tersoff    NULL NULL C(O) NULL NULL NULL
+pair_coeff      * *  tersoff 3  ../../forcefields/C.opt.tersoff    NULL NULL NULL C(O) NULL NULL
+pair_coeff      * *  rebomos    ../../forcefields/MoS.REBO.set5b   NULL NULL NULL NULL M    S
+pair_coeff      * *  eam/alloy  ../../forcefields/Al99.eam.alloy   Al   NULL NULL NULL NULL NULL
+pair_coeff      ${Al}  ${C0}  morse/smooth/linear 0.00486 1.29 4.15 12
+pair_coeff      ${Al}  ${C1}  morse/smooth/linear 0.00486 1.29 4.15 12
+pair_coeff      ${Al}  ${C2}  morse/smooth/linear 0.00486 1.29 4.15 12
+pair_coeff      ${Al}  ${S}   lj/smooth/linear   0.00 3.625
+pair_coeff      ${Al}  ${Mo}  lj/smooth/linear   0.00 3.625
+pair_coeff      ${C0}  ${C1}  kolmogorov/crespi/z  ../../forcefields/CC.KC  NULL C    C    C    NULL NULL
+pair_coeff      ${C0}  ${C2}  kolmogorov/crespi/z  ../../forcefields/CC.KC  NULL C    C    C    NULL NULL
+pair_coeff      ${C0}  ${Mo}  lj/smooth/linear   0.00395000 3.625
+pair_coeff      ${C0}  ${S}   lj/smooth/linear   0.00395000 3.625
+pair_coeff      ${C1}  ${C2}  kolmogorov/crespi/z  ../../forcefields/CC.KC  NULL C    C    C    NULL NULL
+pair_coeff      ${C1}  ${Mo}  lj/smooth/linear   0.00395000 3.625
+pair_coeff      ${C1}  ${S}   lj/smooth/linear   0.00395000 3.625
+pair_coeff      ${C2}  ${Mo}  lj/smooth/linear   0.00395000 3.625
+pair_coeff      ${C2}  ${S}   lj/smooth/linear   0.00395000 3.625

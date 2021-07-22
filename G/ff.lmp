@@ -1,0 +1,23 @@
+#############################
+#Atoms types - mass - charge#
+#############################
+#@ 12 atom types #!THIS LINE IS NECESSARY DON'T SPEND HOURS FINDING THAT OUT!#
+
+variable Al  equal 1
+variable C   equal 2
+
+#############
+#Atom Masses#
+#############
+
+mass ${Al}      26.981539
+mass ${C}       12.01
+
+###########################
+#Pair Potentials - Tersoff#
+###########################
+
+pair_style hybrid/overlay morse/smooth/linear 12 eam/alloy tersoff
+pair_coeff      * *  tersoff   ../../forcefields/C.opt.tersoff     NULL C(O)
+pair_coeff      * *  eam/alloy ../../forcefields/Al99.eam.alloy    Al   NULL
+pair_coeff      ${Al}  ${C}  morse/smooth/linear 0.00486 1.29 4.15 12
